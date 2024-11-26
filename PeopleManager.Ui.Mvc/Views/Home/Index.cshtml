@@ -1,0 +1,35 @@
+﻿@model Vives.Services.Model.PagedServiceResult<PersonResult, PeopleManager.Dto.Filters.PersonFilter>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Employee of the Month!</h1>
+    @{
+        var firstEmployee = Model.Data?.FirstOrDefault();
+        if (firstEmployee is not null)
+        {
+            <partial name="PersonCardPartial" model="firstEmployee"/>
+        }
+        else
+        {
+            <span>We have no employees to choose from...</span>
+        }
+    }
+</div>
+
+
+@if (Model.Data is not null)
+{
+    <div>
+        <h1>Employees list</h1>
+        <div class="row">
+            @foreach (var person in Model.Data)
+            {
+                <div class="col-4">
+                    <partial name="PersonCardPartial" model="person"/>
+                </div>
+            }
+        </div>
+    </div>
+}
